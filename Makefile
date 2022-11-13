@@ -3,7 +3,7 @@ CXXFLAGS = -march=native -O3 -Wall -Wextra -std=c++17 -Wno-unused-parameter -Wsh
 
 PREFIX = /usr/local
 INSTALLDIR = $(PREFIX)/bin
-TARGET = kavpass
+TARGET = aerial
 CC = cc
 CXX = c++
 RM = rm -rf
@@ -17,7 +17,7 @@ CXXOBJS += $(CXXSRC:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 
 
 
-kavpass: ${OBJS} ${CXXOBJS}
+$(TARGET): ${OBJS} ${CXXOBJS}
 	$(CXX) $(CXXFLAGS) $(CFLAGS) $(CXXOBJS) $(OBJS) -o $@
 
 all: ${OBJS} ${CXXOBJS}
@@ -38,7 +38,7 @@ $(CXXOBJS): $(OBJDIR)/%.o : $(SRCDIR)/%.cpp
 .PHONY: install
 install:
 	mkdir -p ${DESTDIR}/${PREFIX}/bin
-	cp -f kavpass ${DESTDIR}${PREFIX}/bin
+	cp -f $(TARGET) ${DESTDIR}${PREFIX}/bin
 	@echo "Installation complete."
 .PHONY: clean
 clean:
