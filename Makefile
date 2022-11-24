@@ -1,5 +1,5 @@
-CFLAGS = -march=native -O3 -Wall -Wextra -std=c99 -Wimplicit-function-declaration -Wunused-parameter -Wshadow -Wdouble-promotion -Wundef -fno-common -fstack-usage -Wconversion -ffunction-sections -Wpadded -fshort-enums -ffast-math
-CXXFLAGS = -march=native -O3 -Wall -Wextra -std=c++17 -Wno-unused-parameter -Wshadow -Wdouble-promotion -Wundef -fno-common -fstack-usage -Wconversion -ffunction-sections -Wpadded -fshort-enums -ffast-math
+CFLAGS = -s -march=native -O3 -Wall -Wextra -std=c99 -Wimplicit-function-declaration -Wno-unused-parameter -Wshadow -Wdouble-promotion -Wundef -fno-common -fstack-usage -Wconversion -ffunction-sections -Wpadded -fshort-enums -ffast-math
+CXXFLAGS = -s -march=native -O3 -Wall -Wextra -std=c++17 -Wno-unused-parameter -Wshadow -Wdouble-promotion -Wundef -fno-common -fstack-usage -Wconversion -ffunction-sections -Wpadded -fshort-enums -ffast-math
 
 PREFIX = /usr/local
 INSTALLDIR = $(PREFIX)/bin
@@ -48,8 +48,15 @@ clean:
 fc:
 	$(RM) $(OBJDIR)/*
 	$(RM) $(TARGET)
+	$(RM) testing
 	@echo "Clean complete."
 .PHONY: uninstall
 uninstall:
 	$(RM) ${DESTDIR}${PREFIX}/bin/$(TARGET)
 	@echo "Uninstallation complete."
+test:
+	$(CC) $(CFLAGS) -c test/*.c
+	$(CC) $(CFLAGS) test/*.o -o testing
+	./testing
+	rm -rf test/*.o
+	rm testing
